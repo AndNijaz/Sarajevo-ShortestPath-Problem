@@ -1,0 +1,14 @@
+placeA,placeB,constraint,probability
+A,B,high constructions,0.2
+B,D,foggy,0.1
+B,D,foggy,0.7
+B,M,high constructions,0.05
+C,I,medics helicopter,0.2
+G,I,medics helicopter,0.1
+L,O,high constructions,0.3
+N,M,high constructions,0.4
+K,I,foggy,0.4
+K,L,foggy,0.4
+K,D,foggy,0.4
+E,F,high constructions,0.4
+E,F,medics helicopter,0.2

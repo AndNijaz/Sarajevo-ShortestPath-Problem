@@ -1,0 +1,16 @@
+shortcode, name
+A,Alipašino
+B,Baščaršija
+C,Ciglane
+D,Doglodi
+E,Energoinvest Stup
+F,Ferhadija
+G,Grdonj
+H,Hrid
+I,Ilidža
+J,Jarčedole
+K,Krivoglavci
+L,Lužani
+M,Marijin Dvor
+N,Novi Grad
+O,Otoka
