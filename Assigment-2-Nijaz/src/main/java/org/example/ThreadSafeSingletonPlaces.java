@@ -10,7 +10,6 @@ public class ThreadSafeSingletonPlaces {
     private int counter;
 
     private ThreadSafeSingletonPlaces() {
-        // Initialization code, if any
         placesMap = new HashMap<>();
     }
 
@@ -50,7 +49,4 @@ public class ThreadSafeSingletonPlaces {
     public void updateCounter() {
         counter++;
     }
-    // Return a copy of the dataMap or an unmodifiable view to prevent external modifications
-
-        // Other methods and properties of the class can be defined here
 }

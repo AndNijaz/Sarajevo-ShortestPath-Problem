@@ -1,43 +1,43 @@
 package org.example;
 
-import javax.swing.plaf.synth.SynthOptionPaneUI;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.Arrays;
 import java.util.Map;
 import java.util.PriorityQueue;
 import java.util.Set;
 
 public class ShortestPath {
-    public static void timeRequiredBetweenAllPlaces(Graph graph){
-        Set<String> placesNameSet = graph.getPlacesNameSet();
+    public static void timeRequiredBetweenAllPlaces(Graph graph, String pathName) throws IOException {
+        ThreadSafeSingletonPlaces singletonPlaces = ThreadSafeSingletonPlaces.getInstance();
+        Map<String, Place> placesMap = singletonPlaces.getAllData();
 
+        Set<String> placesNameSet = graph.getPlacesNameSet();
+        FileWriter fw = new FileWriter(pathName);
         for(String place : placesNameSet){
 
             int[] arr = ShortestPath._shortestDistanceToAllVertices(graph, place);
             int counter = 0;
             for(String entry : placesNameSet){
-                //System.out.println(entry);
                 if(arr[counter] != 0) {
-                    System.out.println(place + " -> " + entry + " " + arr[counter]);
+                    //System.out.println(place + " -> " + entry + " " + arr[counter]);
+                    //fw.write(place + " -> " + entry + " " + arr[counter] + "\n");
+                    fw.write(placesMap.get(place).getPlaceName() + " -> " + placesMap.get(entry).getPlaceName() + " " + arr[counter] + "\n");
                 }
                 counter++;
             }
-            System.out.println("----");
+            //System.out.println("----");
         }
-
-        //System.out.println(Arrays.toString(arr1));
-
 
     }
     public static int shortestPathBetweenTwoVertices(Graph graph, String placeOne, String placeTwo){
         ThreadSafeSingletonPlaces singletonPlaces = ThreadSafeSingletonPlaces.getInstance();
         Map<String, Place> placesMap = singletonPlaces.getAllData();
 
-        //System.out.println(placeOne + " " + placeTwo);
         if(!placesMap.containsKey(placeOne)) return -1;
         int start = placesMap.get(placeOne).getPlaceID();
         if(!placesMap.containsKey(placeTwo)) return -1;
         int end = placesMap.get(placeTwo).getPlaceID();
-        //System.out.println(_shortestDistanceToAllVertices(graph,placeOne)[end]);
         if(end <= graph.size && start <= graph.size && _shortestDistanceToAllVertices(graph,placeOne)[end] != Integer.MAX_VALUE) return _shortestDistanceToAllVertices(graph,placeOne)[end];
         return -1;
     }
@@ -79,13 +79,6 @@ public class ShortestPath {
             }
         }
 
-        //System.out.println("distance" + distances);
-        //distances = Arrays.stream(distances).map(distance -> distance == Integer.MAX_VALUE ? -1 : distance);
-        //System.out.println(t);
-        //for(int i=0; i<distances.length; i++){
-        //    if(distances[i] == Integer.MAX_VALUE) distances[i] = -1;
-        //}
-        //System.out.println(distances);
         return distances;
     }
 }

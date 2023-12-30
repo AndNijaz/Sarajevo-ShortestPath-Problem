@@ -1,44 +1,32 @@
 package org.example;
 
-import javax.swing.plaf.synth.SynthOptionPaneUI;
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.util.*;
 
 public class Main {
     public static void main(String[] args) {
+        try {
+            loadPlaces();
+            loadConstraints();
 
-        loadPlaces();
-        loadConstraints();
+            Graph graph1 = createGraph("C:\\Users\\andel\\Desktop\\assigment-2\\Assigment-2-Nijaz\\simple.txt");
+            Graph graph2 = createGraph("C:\\Users\\andel\\Desktop\\assigment-2\\Assigment-2-Nijaz\\five_places.txt");
+            Graph graph3 = createGraph("C:\\Users\\andel\\Desktop\\assigment-2\\Assigment-2-Nijaz\\all_places_a.txt");
+            Graph graph4 = createGraph("C:\\Users\\andel\\Desktop\\assigment-2\\Assigment-2-Nijaz\\all_places_b.txt");
+            Graph graph5 = createGraph("C:\\Users\\andel\\Desktop\\assigment-2\\Assigment-2-Nijaz\\complex.txt");
+            Graph graph6 = createGraph("C:\\Users\\andel\\Desktop\\assigment-2\\Assigment-2-Nijaz\\ten_places.txt");
+            //       Graph graph6 = createGraph("C:\\Users\\andel\\Desktop\\assigment-2\\Assigment-2-Nijaz\\moj.txt");
 
-        //Graph graph1 = createGraph("C:\\Users\\andel\\Desktop\\assigment-2\\Assigment-2-Nijaz\\simple.txt");
-        //Graph graph2 = createGraph("C:\\Users\\andel\\Desktop\\assigment-2\\Assigment-2-Nijaz\\five_places.txt");
-        //Graph graph3 = createGraph("C:\\Users\\andel\\Desktop\\assigment-2\\Assigment-2-Nijaz\\all_places_a.txt");
-        //Graph graph4 = createGraph("C:\\Users\\andel\\Desktop\\assigment-2\\Assigment-2-Nijaz\\all_places_b.txt");
-        //Graph graph5 = createGraph("C:\\Users\\andel\\Desktop\\assigment-2\\Assigment-2-Nijaz\\complex.txt");
-        //Graph graph6 = createGraph("C:\\Users\\andel\\Desktop\\assigment-2\\Assigment-2-Nijaz\\ten_places.txt");
-        Graph graph6 = createGraph("C:\\Users\\andel\\Desktop\\assigment-2\\Assigment-2-Nijaz\\moj.txt");
-
-/*--
-
-        Graph graph = new Graph(graphEdges);
-
-        graph.printGraph();
-
-        graph.timeRequiredBetweenAllPlaces();
-
-        graph.shortestPathBetweenTwoVertices("B", "A");
-
- */
-        graph6.printGraph();
-        //graph6.timeRequiredBetweenAllPlaces();
-        //graph6.shortestPathBetweenTwoVertices("A", "C");
-        ShortestPath.timeRequiredBetweenAllPlaces(graph6);
-        System.out.println(ShortestPath.shortestPathBetweenTwoVertices(graph6,"A", "B"));
-        System.out.println(ShortestPath.shortestPathBetweenTwoVertices(graph6,"A", "C"));
-        System.out.println(ShortestPath.shortestPathBetweenTwoVertices(graph6,"B", "A"));
-        System.out.println(ShortestPath.shortestPathBetweenTwoVertices(graph6,"D", "C"));
-        System.out.println(ShortestPath.shortestPathBetweenTwoVertices(graph6,"A", "G"));
-        System.out.println(ShortestPath.shortestPathBetweenTwoVertices(graph6,"B", "C"));
+            ShortestPath.timeRequiredBetweenAllPlaces(graph1, "report_simple");
+            ShortestPath.timeRequiredBetweenAllPlaces(graph2, "report_five_places");
+            ShortestPath.timeRequiredBetweenAllPlaces(graph3, "report_all_places_a");
+            ShortestPath.timeRequiredBetweenAllPlaces(graph4, "report_all_places_b");
+            ShortestPath.timeRequiredBetweenAllPlaces(graph5, "report_complex");
+            ShortestPath.timeRequiredBetweenAllPlaces(graph6, "report_ten_places");
+        } catch(Exception e){
+            e.printStackTrace();
+        }
 
     }
 
@@ -52,14 +40,14 @@ public class Main {
         return placesNameSet;
     }
 
-    private static ArrayList<Edge> createEdgeList(String pathName){
+    private static ArrayList<Edge> createEdgeList(String pathName) throws FileNotFoundException {
         ThreadSafeSingletonConstraits singletonConstraits = ThreadSafeSingletonConstraits.getInstance();
 
         ArrayList<Edge> edgeList = new ArrayList<>();
 
         File placesFile = new File(pathName);
 
-        try {
+
             Scanner placesScanner = new Scanner(placesFile);
 
             while(placesScanner.hasNextLine()){
@@ -81,9 +69,7 @@ public class Main {
                 edgeList.add(new Edge(startVertex, endVertex, Integer.parseInt(lineParts[2]), constraitProbability, constraitName));
             }
             placesScanner.close();
-        } catch(Exception e){
-            e.printStackTrace();
-        }
+
 
         return edgeList;
     }
@@ -102,7 +88,7 @@ public class Main {
             }
         }
     }
-    private static ArrayList<Edge> loadGraphPlaces(String pathName){
+    private static ArrayList<Edge> loadGraphPlaces(String pathName) throws FileNotFoundException {
         ArrayList<Edge> edgeList = createEdgeList(pathName);
 
         checkAndAddNewLocations(edgeList);
@@ -110,7 +96,7 @@ public class Main {
         return edgeList;
     }
 
-    private static Graph createGraph(String pathName) {
+    private static Graph createGraph(String pathName) throws FileNotFoundException {
         ArrayList<Edge> edgeList = loadGraphPlaces(pathName);
         return new Graph(edgeList);
     }
@@ -132,9 +118,6 @@ public class Main {
             }
             s.close();
 
-            //for(Constrait c : singletonConstraits.getAllData()){
-            //    System.out.println(c.getStartVertex() + " " + c.getEndVertex() + " " + c.getConstraintName() + " " + c.getProbability());
-            //}
         } catch(Exception e){
             e.printStackTrace();
         }
@@ -144,7 +127,6 @@ public class Main {
         ThreadSafeSingletonPlaces singletonPlaces = ThreadSafeSingletonPlaces.getInstance();
 
         File placesFile = new File("C:\\Users\\andel\\Desktop\\assigment-2\\Assigment-2-Nijaz\\places.txt");
-
 
         try {
             Scanner s = new Scanner(placesFile);
@@ -161,14 +143,6 @@ public class Main {
 
             s.close();
 
-            /*
-            for (Map.Entry<String, Place> entry : singletonPlaces.getAllData().entrySet()) {
-                String key = entry.getKey();
-                Place value = entry.getValue();
-
-                System.out.println("Key: " + key + ", Value: {stringValue: " + value.getPlaceName() + ", index: " + value.getPlaceID() + "}");
-            }
-             */
         } catch(Exception e){
             e.printStackTrace();
         }

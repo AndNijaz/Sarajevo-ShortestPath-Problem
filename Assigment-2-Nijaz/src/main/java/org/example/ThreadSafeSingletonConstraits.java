@@ -10,7 +10,6 @@ public class ThreadSafeSingletonConstraits {
     private ArrayList<Constrait> constraitsList;
 
     private ThreadSafeSingletonConstraits() {
-        // Initialization code, if any
         constraitsList = new ArrayList<>();
     }
 
@@ -36,7 +35,4 @@ public class ThreadSafeSingletonConstraits {
     public ArrayList<Constrait> getAllData() {
         return new ArrayList<>(constraitsList);
     }
-        // Return a copy of the dataMap or an unmodifiable view to prevent external modifications
-
-        // Other methods and properties of the class can be defined here
 }
