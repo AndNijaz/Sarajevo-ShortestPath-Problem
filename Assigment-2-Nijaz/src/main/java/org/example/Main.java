@@ -33,7 +33,12 @@ public class Main {
         //graph6.timeRequiredBetweenAllPlaces();
         //graph6.shortestPathBetweenTwoVertices("A", "C");
         ShortestPath.timeRequiredBetweenAllPlaces(graph6);
-        ShortestPath.shortestPathBetweenTwoVertices(graph6,"D", "A");
+        System.out.println(ShortestPath.shortestPathBetweenTwoVertices(graph6,"A", "B"));
+        System.out.println(ShortestPath.shortestPathBetweenTwoVertices(graph6,"A", "C"));
+        System.out.println(ShortestPath.shortestPathBetweenTwoVertices(graph6,"B", "A"));
+        System.out.println(ShortestPath.shortestPathBetweenTwoVertices(graph6,"D", "C"));
+        System.out.println(ShortestPath.shortestPathBetweenTwoVertices(graph6,"A", "G"));
+        System.out.println(ShortestPath.shortestPathBetweenTwoVertices(graph6,"B", "C"));
 
     }
 
@@ -110,7 +115,7 @@ public class Main {
         return new Graph(edgeList);
     }
 
-    private static void loadConstraints() {
+    protected static void loadConstraints() {
         ThreadSafeSingletonConstraits singletonConstraits = ThreadSafeSingletonConstraits.getInstance();
 
         File constraitsFile = new File("C:\\Users\\andel\\Desktop\\assigment-2\\Assigment-2-Nijaz\\constraints.txt");
@@ -135,7 +140,7 @@ public class Main {
         }
     }
 
-    private static void loadPlaces() {
+    protected static void loadPlaces() {
         ThreadSafeSingletonPlaces singletonPlaces = ThreadSafeSingletonPlaces.getInstance();
 
         File placesFile = new File("C:\\Users\\andel\\Desktop\\assigment-2\\Assigment-2-Nijaz\\places.txt");

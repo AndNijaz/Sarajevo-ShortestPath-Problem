@@ -1,5 +1,6 @@
 package org.example;
 
+import javax.swing.plaf.synth.SynthOptionPaneUI;
 import java.util.Arrays;
 import java.util.Map;
 import java.util.PriorityQueue;
@@ -11,7 +12,7 @@ public class ShortestPath {
 
         for(String place : placesNameSet){
 
-            int[] arr = ShortestPath.shortestDistanceToAllVertices(graph, place);
+            int[] arr = ShortestPath._shortestDistanceToAllVertices(graph, place);
             int counter = 0;
             for(String entry : placesNameSet){
                 //System.out.println(entry);
@@ -27,16 +28,21 @@ public class ShortestPath {
 
 
     }
-    public static void shortestPathBetweenTwoVertices(Graph graph, String placeOne, String placeTwo){
+    public static int shortestPathBetweenTwoVertices(Graph graph, String placeOne, String placeTwo){
         ThreadSafeSingletonPlaces singletonPlaces = ThreadSafeSingletonPlaces.getInstance();
         Map<String, Place> placesMap = singletonPlaces.getAllData();
 
+        //System.out.println(placeOne + " " + placeTwo);
+        if(!placesMap.containsKey(placeOne)) return -1;
         int start = placesMap.get(placeOne).getPlaceID();
+        if(!placesMap.containsKey(placeTwo)) return -1;
         int end = placesMap.get(placeTwo).getPlaceID();
-
-        System.out.println(shortestDistanceToAllVertices(graph,placeOne)[end]);
+        //System.out.println(_shortestDistanceToAllVertices(graph,placeOne)[end]);
+        if(end <= graph.size && start <= graph.size && _shortestDistanceToAllVertices(graph,placeOne)[end] != Integer.MAX_VALUE) return _shortestDistanceToAllVertices(graph,placeOne)[end];
+        return -1;
     }
-    public static int[] shortestDistanceToAllVertices(Graph graph, String place) {
+
+    private static int[] _shortestDistanceToAllVertices(Graph graph, String place) {
         ThreadSafeSingletonPlaces singletonPlaces = ThreadSafeSingletonPlaces.getInstance();
         Map<String, Place> placesMap = singletonPlaces.getAllData();
         int[][] matrix = graph.getMatrix();
@@ -73,6 +79,13 @@ public class ShortestPath {
             }
         }
 
+        //System.out.println("distance" + distances);
+        //distances = Arrays.stream(distances).map(distance -> distance == Integer.MAX_VALUE ? -1 : distance);
+        //System.out.println(t);
+        //for(int i=0; i<distances.length; i++){
+        //    if(distances[i] == Integer.MAX_VALUE) distances[i] = -1;
+        //}
+        //System.out.println(distances);
         return distances;
     }
 }
