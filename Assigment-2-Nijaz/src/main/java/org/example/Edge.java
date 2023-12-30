@@ -1,25 +1,56 @@
 package org.example;
 
 public class Edge {
-    private final Integer startVertex;
-    private final Integer endVertex;
+    private final String startVertex;
+    private final String endVertex;
     private final Integer weight;
+    private Double constrait;
+    private String constraitName;
 
-    public Edge(Integer startVertex, Integer endVertex, Integer weight) {
+    public Edge(String startVertex, String endVertex, Integer weight, Double constrait, String constraitName) {
         this.startVertex = startVertex;
         this.endVertex = endVertex;
         this.weight = weight;
+        this.constrait = constrait;
+        this.constraitName = constraitName;
     }
 
-    public Integer getStartVertex() {
+    public String getStartVertex() {
         return startVertex;
     }
 
-    public Integer getEndVertex() {
+    public String getEndVertex() {
         return endVertex;
     }
 
     public Integer getWeight() {
         return weight;
+    }
+
+    @Override
+    public String toString() {
+        return "Edge{" +
+                "startVertex='" + startVertex + '\'' +
+                ", endVertex='" + endVertex + '\'' +
+                ", weight=" + weight +
+                ", constrait=" + constrait +
+                ", constraitName='" + constraitName + '\'' +
+                '}';
+    }
+
+    public void setConstrait(Double constrait) {
+        this.constrait = constrait;
+    }
+
+    public Double getConstrait() {
+        return constrait;
+    }
+
+    public void setConstraitName(String constraitName) {
+        this.constraitName = constraitName;
+    }
+
+    public String getConstraitName() {
+        return constraitName;
     }
 }
