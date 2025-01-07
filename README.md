@@ -63,7 +63,7 @@ Here, 0.2 represents the probability of encountering high construction between A
 ## Implementation Details
 
 ### Technologies Used
-- **Python**: Core programming language for graph processing and algorithms.
+- **Java**: Core programming language for graph processing and algorithms.
 - **Unit Testing Framework**: To ensure correctness of shortest path calculations.
 - **Data Structures**: Directed weighted graphs using adjacency lists or matrices.
 
